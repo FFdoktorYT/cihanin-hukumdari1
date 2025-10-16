@@ -1,39 +1,50 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <title>Cihanın Hükümdarı</title>
 <style>
-  body { margin:0; overflow:hidden; background:#000; }
+  html, body {
+    margin:0;
+    padding:0;
+    height:100%;
+    overflow:hidden;
+    background:#000;
+  }
   #map {
-    width:100vw; height:100vh;
-    background-image:url('https://raw.githubusercontent.com/azmind/world-map/main/world-map.svg');
-    background-size:cover;
-    background-position:center;
-    transition:transform 0.2s ease;
+    width:100%;
+    height:100%;
+    position:relative;
   }
   .city {
     position:absolute;
-    width:20px; height:20px;
+    width:18px;
+    height:18px;
     background:gold;
     border-radius:50%;
     cursor:pointer;
     box-shadow:0 0 10px gold;
   }
   #info {
-    position:absolute; top:10px; left:10px;
-    color:gold; background:rgba(0,0,0,0.6);
-    padding:8px 12px; border-radius:10px;
+    position:absolute;
+    top:10px; left:10px;
+    color:gold;
+    background:rgba(0,0,0,0.6);
+    padding:8px 12px;
+    border-radius:10px;
     font-family:Georgia;
+    z-index:999;
   }
   #menu {
     display:none;
     position:absolute;
-    background:rgba(0,0,0,0.8);
+    background:rgba(0,0,0,0.85);
     color:white;
     padding:15px;
     border-radius:10px;
     width:200px;
+    z-index:1000;
   }
   #menu button {
     display:block;
@@ -41,54 +52,45 @@
     width:100%;
     background:gold;
     border:none;
-    padding:5px;
+    padding:6px;
     cursor:pointer;
-    border-radius:5px;
+    border-radius:6px;
   }
   #menu button:hover { background:darkorange; }
+  iframe {
+    width:100%;
+    height:100%;
+    border:none;
+  }
 </style>
 </head>
 <body>
+
 <div id="info">🕌 Başkent: İstanbul | 💰 Altın: 5000 | ⚔️ Yıl: 1400</div>
 <div id="map">
-  <div class="city" style="top:330px; left:680px;" onclick="openMenu(event,'İstanbul')"></div>
-  <div class="city" style="top:360px; left:700px;" onclick="openMenu(event,'Bursa')"></div>
-  <div class="city" style="top:430px; left:720px;" onclick="openMenu(event,'Kahire')"></div>
+  <!-- Gerçek harita iframe -->
+  <iframe
+    src="https://www.openstreetmap.org/export/embed.html?bbox=-20.0,10.0,60.0,60.0&layer=mapnik"
+    style="filter:brightness(0.7) contrast(1.2);"></iframe>
+
+  <!-- Şehir noktaları -->
+  <div class="city" style="top:310px; left:660px;" onclick="openMenu(event,'İstanbul')"></div>
+  <div class="city" style="top:340px; left:670px;" onclick="openMenu(event,'Bursa')"></div>
+  <div class="city" style="top:410px; left:700px;" onclick="openMenu(event,'Kahire')"></div>
 </div>
 
 <div id="menu">
   <h3 id="cityName"></h3>
-  <button onclick="alert('Vergi toplandı!')">💰 Vergi Topla</button>
-  <button onclick="alert('Yeni ordu kuruldu!')">⚔️ Ordu Kur</button>
-  <button onclick="alert('Şehir geliştirildi!')">🏗️ Geliştir</button>
+  <button onclick="alert('💰 Vergi toplandı!')">Vergi Topla</button>
+  <button onclick="alert('⚔️ Yeni ordu kuruldu!')">Ordu Kur</button>
+  <button onclick="alert('🏗️ Şehir geliştirildi!')">Geliştir</button>
   <button onclick="closeMenu()">Kapat</button>
 </div>
 
 <script>
-const map = document.getElementById('map');
-let scale=1,x=0,y=0,drag=false,sx,sy;
-
-map.addEventListener('wheel',e=>{
-  e.preventDefault();
-  scale+=e.deltaY*-0.001;
-  scale=Math.min(Math.max(0.5,scale),5);
-  map.style.transform=`translate(${x}px,${y}px) scale(${scale})`;
-});
-
-map.addEventListener('mousedown',e=>{
-  drag=true;sx=e.clientX-x;sy=e.clientY-y;
-});
-map.addEventListener('mouseup',()=>drag=false);
-map.addEventListener('mousemove',e=>{
-  if(!drag)return;
-  x=e.clientX-sx;y=e.clientY-sy;
-  map.style.transform=`translate(${x}px,${y}px) scale(${scale})`;
-});
-
 function openMenu(e,name){
   const menu=document.getElementById('menu');
-  const cityName=document.getElementById('cityName');
-  cityName.textContent='🏙️ '+name;
+  document.getElementById('cityName').textContent='🏙️ '+name;
   menu.style.left=e.pageX+'px';
   menu.style.top=e.pageY+'px';
   menu.style.display='block';
@@ -97,5 +99,6 @@ function closeMenu(){
   document.getElementById('menu').style.display='none';
 }
 </script>
+
 </body>
 </html>
