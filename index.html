@@ -7,37 +7,95 @@
   body { margin:0; overflow:hidden; background:#000; }
   #map {
     width:100vw; height:100vh;
-    background-image: url('https://raw.githubusercontent.com/azmind/world-map/main/world-map.svg');
+    background-image:url('https://raw.githubusercontent.com/azmind/world-map/main/world-map.svg');
     background-size:cover;
     background-position:center;
     transition:transform 0.2s ease;
   }
+  .city {
+    position:absolute;
+    width:20px; height:20px;
+    background:gold;
+    border-radius:50%;
+    cursor:pointer;
+    box-shadow:0 0 10px gold;
+  }
   #info {
     position:absolute; top:10px; left:10px;
-    color:gold; background:rgba(0,0,0,0.5);
-    padding:10px; border-radius:8px; font-family:Georgia;
+    color:gold; background:rgba(0,0,0,0.6);
+    padding:8px 12px; border-radius:10px;
+    font-family:Georgia;
   }
+  #menu {
+    display:none;
+    position:absolute;
+    background:rgba(0,0,0,0.8);
+    color:white;
+    padding:15px;
+    border-radius:10px;
+    width:200px;
+  }
+  #menu button {
+    display:block;
+    margin-top:10px;
+    width:100%;
+    background:gold;
+    border:none;
+    padding:5px;
+    cursor:pointer;
+    border-radius:5px;
+  }
+  #menu button:hover { background:darkorange; }
 </style>
 </head>
 <body>
 <div id="info">🕌 Başkent: İstanbul | 💰 Altın: 5000 | ⚔️ Yıl: 1400</div>
-<div id="map"></div>
+<div id="map">
+  <div class="city" style="top:330px; left:680px;" onclick="openMenu(event,'İstanbul')"></div>
+  <div class="city" style="top:360px; left:700px;" onclick="openMenu(event,'Bursa')"></div>
+  <div class="city" style="top:430px; left:720px;" onclick="openMenu(event,'Kahire')"></div>
+</div>
+
+<div id="menu">
+  <h3 id="cityName"></h3>
+  <button onclick="alert('Vergi toplandı!')">💰 Vergi Topla</button>
+  <button onclick="alert('Yeni ordu kuruldu!')">⚔️ Ordu Kur</button>
+  <button onclick="alert('Şehir geliştirildi!')">🏗️ Geliştir</button>
+  <button onclick="closeMenu()">Kapat</button>
+</div>
+
 <script>
 const map = document.getElementById('map');
-let scale = 1, x = 0, y = 0, drag = false, sx, sy;
-map.addEventListener('wheel', e => {
+let scale=1,x=0,y=0,drag=false,sx,sy;
+
+map.addEventListener('wheel',e=>{
   e.preventDefault();
-  scale += e.deltaY * -0.001;
-  scale = Math.min(Math.max(0.5, scale), 5);
-  map.style.transform = `translate(${x}px,${y}px) scale(${scale})`;
+  scale+=e.deltaY*-0.001;
+  scale=Math.min(Math.max(0.5,scale),5);
+  map.style.transform=`translate(${x}px,${y}px) scale(${scale})`;
 });
-map.addEventListener('mousedown', e => { drag = true; sx = e.clientX - x; sy = e.clientY - y; });
-map.addEventListener('mouseup', ()=> drag=false);
-map.addEventListener('mousemove', e => {
-  if(!drag) return;
-  x = e.clientX - sx; y = e.clientY - sy;
-  map.style.transform = `translate(${x}px,${y}px) scale(${scale})`;
+
+map.addEventListener('mousedown',e=>{
+  drag=true;sx=e.clientX-x;sy=e.clientY-y;
 });
+map.addEventListener('mouseup',()=>drag=false);
+map.addEventListener('mousemove',e=>{
+  if(!drag)return;
+  x=e.clientX-sx;y=e.clientY-sy;
+  map.style.transform=`translate(${x}px,${y}px) scale(${scale})`;
+});
+
+function openMenu(e,name){
+  const menu=document.getElementById('menu');
+  const cityName=document.getElementById('cityName');
+  cityName.textContent='🏙️ '+name;
+  menu.style.left=e.pageX+'px';
+  menu.style.top=e.pageY+'px';
+  menu.style.display='block';
+}
+function closeMenu(){
+  document.getElementById('menu').style.display='none';
+}
 </script>
 </body>
 </html>
