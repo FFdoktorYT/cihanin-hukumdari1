@@ -1,66 +1,43 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cihanın Hükümdarı</title>
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    font-family: 'Times New Roman', serif;
-    color: gold;
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/68/Equirectangular_projection_SW.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-  #info {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 10px 20px;
-    border: 2px solid gold;
-    border-radius: 10px;
-    font-size: 18px;
-  }
-  .city {
-    position: absolute;
-    background: rgba(255, 215, 0, 0.8);
-    border-radius: 50%;
-    width: 12px;
-    height: 12px;
-    box-shadow: 0 0 10px gold;
-  }
-  .label {
-    position: absolute;
-    color: white;
-    font-size: 15px;
-    text-shadow: 1px 1px 2px black;
-  }
-</style>
-</head>
-<body>
-  <div id="info">
-    🏰 Başkent: <b>İstanbul</b><br>
-    💰 Altın: <b>1200</b>
-  </div>
+# YÜKSELEN SANCAK (ASCENDANT BANNER) - KARAKTER YARATMA KODU
 
-  <div class="city" style="top: 45%; left: 52%;"></div>
-  <div class="label" style="top: 47%; left: 54%;">İstanbul</div>
+# Karakter İstatistikleri
+KARAKTER_ISTATISTIKLERI = {
+    "Hanedan Adı": "Vazgeçilmezler Hanesi",
+    "Unvan": "Düşmüş Soylu",
+    "Kuvvet": 4,
+    "Çeviklik": 3,
+    "Liderlik": 2,
+    "Zeka": 3,
+    "Başlangıç Ordusu": 5, # 5 Sadık Acemi Asker
+    "Başlangıç Para": 1000, # Gümüş Sikke
+}
 
-  <div class="city" style="top: 42%; left: 50%;"></div>
-  <div class="label" style="top: 44%; left: 52%;">Ankara</div>
+def karakter_bilgilerini_goster():
+    """Karakterin başlangıç istatistiklerini ve hikayesini gösterir."""
+    
+    print("==============================================")
+    print("      YÜKSELEN SANCAK: VAZGEÇİLMEZLER HANESİ")
+    print("==============================================")
+    print(f"** UNVAN: {KARAKTER_ISTATISTIKLERI['Unvan']}")
+    print(f"** AMAÇ: Gölge Kalesi'ni geri al, itibarını onar ve Krallığını kur.")
+    print("-" * 35)
+    
+    # İstatistikleri Listeleme
+    print("TEMEL İSTATİSTİKLER:")
+    print(f"  Kuvvet (Yakın Dövüş): {KARAKTER_ISTATISTIKLERI['Kuvvet']}")
+    print(f"  Çeviklik (Menzil/At): {KARAKTER_ISTATISTIKLERI['Çeviklik']}")
+    print(f"  Liderlik (Ordu Büyüklüğü): {KARAKTER_ISTATISTIKLERI['Liderlik']}")
+    print(f"  Zeka (Yönetim/Ticaret): {KARAKTER_ISTATISTIKLERI['Zeka']}")
+    print("-" * 35)
 
-  <div class="city" style="top: 50%; left: 60%;"></div>
-  <div class="label" style="top: 52%; left: 62%;">Konya</div>
+    # Başlangıç Varlıkları
+    print("BAŞLANGIÇ VARLIKLARI:")
+    print(f"  Asker Sayısı: {KARAKTER_ISTATISTIKLERI['Başlangıç Ordusu']} sadık acemi asker")
+    print(f"  Altın: {KARAKTER_ISTATISTIKLERI['Başlangıç Para']} Gümüş Sikke")
+    print(f"  Ekipman: Yıpranmış Hanedan Zırhı ve Kılıcı")
+    
+    print("\nOyun Başlıyor... İlk Hedefin: Erzak Toplamak ve Asker Kiralamak.")
+    print("==============================================")
 
-  <div class="city" style="top: 43%; left: 45%;"></div>
-  <div class="label" style="top: 45%; left: 47%;">Bursa</div>
-
-  <div class="city" style="top: 48%; left: 56%;"></div>
-  <div class="label" style="top: 50%; left: 58%;">Edirne</div>
-</body>
-</html>
+# Karakter yaratma işlemini başlat
+karakter_bilgilerini_goster()
